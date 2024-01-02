@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Responsive Registration Form | CodingLab</title>
-    <link rel="stylesheet" href="{% static 'CSS/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -73,7 +73,8 @@
             </div>
              
           </div>
-
+<a href="{% url 'Login' %}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">
+  Login</a>
           <div class="button">
             <input  type="submit" value="Register" />
           </div>

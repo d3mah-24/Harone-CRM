@@ -31,12 +31,13 @@
           </div>
 
         </div>
-
+        <a href="{% url 'Register' %}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">
+          SignUp</a>
         {% if wrong_pass %}
         <p>Wrong Pass</p>
         {% endif %}
         <div class="button">
-          <input type="submit" value="Register" />
+          <input type="submit" value="Login" />
         </div>
       </form>
     </div>

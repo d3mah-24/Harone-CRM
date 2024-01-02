@@ -14,7 +14,7 @@ def UserRegister(req):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = 1
-            user.set_password(form.cleaned_data["password"]) 
+            user.set_password(form.cleaned_data["password"])
             user.save()
             # print()
             return render(req, "Home.jinja2", {"data": []})
@@ -47,4 +47,4 @@ def logout_view(request):
 
 
 def Index(req):
-    return render(req, "Home.jinja2", {"data": [98, 8]})
+    return render(req, "Index.jinja2", {"data": [98, 8]})
