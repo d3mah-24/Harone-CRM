@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive Registration Form | CodingLab</title>
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}"/>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">Registration</div>
+      <div class="content">
+        <form action="/register" method="POST">
+        {%  csrf_token  %}
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">
+                Name <span class="spanReq"> *</span>
+              </span>
+              <input name="name"  type="text" placeholder="Enter your name" required />
+            </div>
+            <div class="input-box">
+              <span class="details">Website</span>
+              <input name="website"type="text" placeholder="Enter your Website" />
+            </div>
+
+            <div class="input-box">
+              <span class="details">Email <span class="spanReq"> *</span></span>
+              <input name="email"type="text" placeholder="Enter your email" required />
+            </div>
+            <div class="input-box">
+              <span class="details">Phone Number  <span class="spanReq"> *</span></span>
+              <input name="phone_num"type="text" required placeholder="Enter your number" />
+            </div>
+            <div class="input-box">
+              <span class="details"
+                >Tin Number <span class="spanReq"> *</span></span
+              >
+              <input name="tin"type="text" placeholder="Enter your Tin Number" required />
+            </div>
+            <div class="input-box">
+              <span class="details">Trade Number</span>
+              <input name="trade_number"type="text" placeholder="Enter your Trade Number" />
+            </div>
+            <div class="input-box">
+              <span class="details"
+                >Address <span class="spanReq"> *</span></span
+              >
+              <input name="address"type="text" placeholder="Enter your Address" required />
+            </div>
+
+            <div class="input-box">
+              <span class="details">Select Sector</span>
+              <select name="sector"
+                class="form-select form-select-lg mb-3"
+                aria-label=".form-select-lg example"
+              > 
+                <option selected value="Manufacturing">Manufacturing</option>
+                <option value="Factory">Factory</option>
+                <option value="Hotel">Hotel</option>
+              </select>
+            </div>
+
+            <div class="input-box">
+              <span class="details"
+                >Password <span class="spanReq"> *</span></span
+              >
+              <input name="password"type="text" placeholder="Enter your password" required />
+            </div>
+             
+          </div>
+
+          <div class="button">
+            <input  type="submit" value="Register" />
+          </div>
+        </form> 
+      </div>
+    </div>
+  </body>
+</html>

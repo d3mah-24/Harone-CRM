@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Responsive Registration Form | CodingLab</title>
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">Login</div>
+
+    <div class="content">
+      {{ form.as_p }}
+      <form action="/login" method="POST">
+        {% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Email <span class="spanReq"> *</span></span>
+            <input name="email" type="text" placeholder="Enter your email" required />
+          </div>
+
+
+          <div class="input-box">
+            <span class="details">Password <span class="spanReq"> *</span></span>
+            <input name="password" type="text" placeholder="Enter your password" required />
+          </div>
+
+        </div>
+
+        {% if wrong_pass %}
+        <p>Wrong Pass</p>
+        {% endif %}
+        <div class="button">
+          <input type="submit" value="Register" />
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
