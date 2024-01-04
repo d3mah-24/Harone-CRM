@@ -11,6 +11,7 @@ class OrderRequest(models.Model):
     Expected_price = models.DecimalField(
         max_digits=5, decimal_places=2, blank=True, null=True
     )
-    Price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
+    Price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     Description = models.CharField(max_length=255, default="")
     Document = models.FileField(upload_to="documents/", blank=True, null=True)
+    date=models.DateTimeField(auto_created=True,blank=True,null=True)

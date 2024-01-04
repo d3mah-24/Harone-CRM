@@ -16,7 +16,7 @@
 
     <div class="content">
       {{ form.as_p }}
-      <form action="/login" method="POST">
+      <form action="{% url 'Login' %}" method="POST">
         {% csrf_token %}
         <div class="user-details">
           <div class="input-box">

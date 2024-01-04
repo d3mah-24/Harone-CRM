@@ -65,10 +65,10 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{% url 'CustomerDashboard' %}" class="nav-item nav-link active"><i
+                    <a href="{% url 'CustomerDashboard' %}" class="nav-item nav-link "><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
-                    <a href="{% url 'CustomerDashboardView' %}" class="nav-item nav-link"><i
+                    <a href="{% url 'CustomerDashboardView' %}" class="nav-item nav-link active"><i
                             class="fa fa-keyboard me-2"></i>Forms</a>
                 </div>
             </nav>
@@ -127,74 +127,61 @@
             </nav>
             <!-- Navbar End -->
 
+
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4  ">
-
-
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-12">
+                    {% for ServiceRequest in ServiceRequests %}
+
+                    <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Request Services</h6>
-                            {% if form.errors %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <div id="form_errors">
-                                    {% for key, value in form.errors.items %}
-                                    <strong>{{ key}} {{ value }}</strong>
-                                    {% endfor %}
-                                </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="mb-0x">Request {{forloop.counter}}</h6>
+
+                                <a>{{ ServiceRequest.Deadline|timesince }} ago</a>
                             </div>
-                            {% endif %}
-                            {% if success %}
-                            <div class="alert  alert-success">
-                                <strong> Service Request Successfully created</strong>
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td>Service Type</td>
+                                        <td> </td>
+                                        <td> SWIFT Connect</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td>Budget</td>
+                                        <td> </td>
 
-                            </div>
-                            {% endif %}
-                            <form method="POST" enctype="multipart/form-data" action="{% url 'CreateOrderRequest' %}">
-                                {% csrf_token %}
-                                <div class="form-floating mb-3">
-                                    <select   class="form-select" id="floatingSelect"
-                                        aria-label="Floating label select example">
-                                        <option selected>SWIFT Connect</option>
-                                    </select>
-                                    <label for="floatingSelect">Select Services Type</label>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Deadline</label>
-                                    <input name="Deadline" type="date" class="form-control">
-                                </div>
-
-                                <label for="floatingTextarea" class="form-label">Description</label>
-                                <div class="form-floating mb-3">
-
-                                    <textarea name="Description" class="form-control" placeholder="Leave a comment here"
-                                        id="floatingTextarea" style="height: 80px;"></textarea>
-                                    <label for="floatingTextarea">Additional Instructions</label>
-
-                                </div>
-                                <label for="basic-url" class="form-label">Your Budget</label>
-
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">$</span>
-                                    <input name="Expected_price" id="basic-url" type="text" class="form-control"
-                                        aria-label="Amount (to the nearest dollar)">
-                                    <span class="input-group-text">.00</span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="formFile" class="form-label">Support Document</label>
-                                    <input name="Document" class="form-control bg-dark" type="file" id="formFile">
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                                        <td>{{ServiceRequest.Expected_price }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td>Description</td>
+                                        <td> </td>
+                                        <td> {{ServiceRequest.Description }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td>Deadline</td>
+                                        <td> </td>
+                                        <td> {{ServiceRequest.Deadline }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    {% empty %}
+                    <div class="alert  alert-success">
+                        <strong>Sorry, No Service Request In Our System </strong>
+
+                    </div>
+
+                    {% endfor %}
+
                 </div>
             </div>
-            <!-- Blank End -->
-
-            <!-- Widgets End -->
+            <!-- Blank End --> 
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
