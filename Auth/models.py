@@ -35,7 +35,8 @@ class Users(AbstractBaseUser):
         unique=True,
     )
     name = models.CharField(max_length=255)
-    website = models.URLField(default="https://google.com", blank=True, null=True)
+    website = models.URLField(
+        default="https://google.com", blank=True, null=True)
     phone_num = models.CharField(max_length=255)
     tin = models.CharField(max_length=255)
     trade_number = models.CharField(max_length=255)
@@ -48,6 +49,7 @@ class Users(AbstractBaseUser):
             ("Hotel", "Hotel"),
         ],
     )
+    is_customer = models.BooleanField(default=True)
     password = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

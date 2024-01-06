@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from .Forms import *
-
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
 
-# Create your views here.
+@login_required
 def CreateOrderRequest(request):
     print(request.POST, request.FILES)
     if request.method == "POST":
@@ -25,15 +25,18 @@ def CreateOrderRequest(request):
     return render(request, "CustomerDashboard.Jinja2", {"form": form})
 
 
+@login_required
 def CustomerDashboard(req):
     return render(req, "CustomerDashboard.Jinja2")
 
 
+@login_required
 def CustomerDashboardView(req):
     ServiceRequests = OrderRequest.objects.filter(Customer=req.user)
     return render(req, "CustomerDashboardView.Jinja2", {"ServiceRequests": ServiceRequests})
 
 
+@login_required
 def CompanyDashboard(req):
     ServiceRequests = OrderRequest.objects.filter(Customer=req.user)
     from itertools import groupby
@@ -59,6 +62,7 @@ def CompanyDashboard(req):
     return render(req, "CompanyDashboard.jinja2", {"ServiceRequests": data, "Sum_tot": Sum_tot})
 
 
+@login_required
 def CompanyReportData(req):
     ServiceRequests = OrderRequest.objects.filter(Customer=req.user)
     from itertools import groupby
@@ -80,6 +84,7 @@ def CompanyReportData(req):
     return JsonResponse(data={"Sum_tot": Sum_tot})
 
 
+@login_required
 @csrf_exempt
 def StatusUpdater(request):
     if request.method == 'POST':
@@ -95,6 +100,8 @@ def StatusUpdater(request):
 
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
+
+@login_required
 
 def CompanyReport(req):
 

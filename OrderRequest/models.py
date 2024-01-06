@@ -17,4 +17,4 @@ class OrderRequest(models.Model):
     Document = models.FileField(upload_to="documents/", blank=True, null=True)
     Date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     Status = models.CharField(
-        max_length=200, default="Lead", blank=True, null=True)
+        max_length=200, default="New", blank=True, null=True)

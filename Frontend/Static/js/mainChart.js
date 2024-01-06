@@ -77,63 +77,68 @@
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      var a = response.json();
-      console.log("Response:");
+      return response.json(); // Parse the JSON data from the response
+    })
+    .then((res) => {
+      const data = res.Sum_tot;
+      console.log("Specific Value:", data);
+      var dataset = [];
+      var values = [];
+      var keys = [];
+      for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+          const element = {
+            label: key,
+            data: [parseInt(data[key])],
+            backgroundColor: `rgba(${Math.floor(
+              Math.random() * (255 - 120) + 120
+            )}, 22, ${Math.floor(Math.random() * (255 - 20) + 20)} )`,
+          };
+
+          dataset.push(element);
+          values.push(parseInt(data[key]));
+          keys.push(key);
+          // console.log(element, key);
+        }
+      }
+      console.log(dataset);
+      var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+      var myChart1 = new Chart(ctx1, {
+        type: "bar",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: dataset,
+        },
+        options: {
+          responsive: true,
+        },
+      });
+      // Doughnut Chart
+      var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
+      var myChart6 = new Chart(ctx6, {
+        type: "doughnut",
+        data: {
+          labels: keys,
+          datasets: [
+            {
+              backgroundColor: [
+                "rgba(123, 55, 22, .7)",
+                "rgba(43, 2, 3, .6)",
+                "rgba(235, 233, 22, .5)",
+                "rgba(36, 22, 22, .4)",
+                "rgba(22, 56, 22, .3)",
+              ],
+              data: values,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
     })
     .catch((error) => {
-      alert(88);
+      // Handle any errors that occurred during the fetch
       console.error("Error:", error);
     });
-
-  var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-
-  var myChart1 = new Chart(ctx1, {
-    type: "bar",
-    data: {
-      labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
-      datasets: [
-        {
-          label: "USA",
-          data: [15, 30, 55, 65, 60, 80, 95],
-          backgroundColor: "rgba(235, 22, 22, .7)",
-        },
-        {
-          label: "UK",
-          data: [8, 35, 40, 60, 70, 55, 75],
-          backgroundColor: "rgba(235, 22, 22, .5)",
-        },
-        {
-          label: "AU",
-          data: [12, 25, 45, 55, 65, 70, 60],
-          backgroundColor: "rgba(235, 22, 22, .3)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-    },
-  });
-  // Doughnut Chart
-  var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
-  var myChart6 = new Chart(ctx6, {
-    type: "doughnut",
-    data: {
-      labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-      datasets: [
-        {
-          backgroundColor: [
-            "rgba(235, 22, 22, .7)",
-            "rgba(235, 22, 22, .6)",
-            "rgba(235, 22, 22, .5)",
-            "rgba(235, 22, 22, .4)",
-            "rgba(235, 22, 22, .3)",
-          ],
-          data: [55, 49, 44, 24, 15],
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-    },
-  });
 })(jQuery);
