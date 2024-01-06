@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
-
 from .Forms import *
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 # Create your views here.
@@ -27,6 +30,72 @@ def CustomerDashboard(req):
 
 
 def CustomerDashboardView(req):
-    ServiceRequests= OrderRequest.objects.filter(Customer=req.user)
-    
-    return render(req, "CustomerDashboardView.Jinja2",{"ServiceRequests":ServiceRequests})
+    ServiceRequests = OrderRequest.objects.filter(Customer=req.user)
+    return render(req, "CustomerDashboardView.Jinja2", {"ServiceRequests": ServiceRequests})
+
+
+def CompanyDashboard(req):
+    ServiceRequests = OrderRequest.objects.filter(Customer=req.user)
+    from itertools import groupby
+
+    def designation_key_func(member): return member.Status
+    queryset = OrderRequest.objects.all()
+
+    ServiceRequests = {}
+    for k, v in groupby(queryset, designation_key_func):
+        ServiceRequests.setdefault(k, []).extend(list(v))
+    order = ["New", "Qualified", "Propostion", "Won", "Lost"]
+    Sum_tot = {}
+    for Status in order:
+        if Status not in ServiceRequests:
+            ServiceRequests[Status] = []
+        Sum_tot[Status] = sum(
+            [a.Expected_price for a in ServiceRequests[Status]])
+        print(list(ServiceRequests[Status]))
+    data = dict(sorted(ServiceRequests.items(),
+                key=lambda x:  order.index(x[0])))
+
+    print(data)
+    return render(req, "CompanyDashboard.jinja2", {"ServiceRequests": data, "Sum_tot": Sum_tot})
+
+
+def CompanyReportData(req):
+    ServiceRequests = OrderRequest.objects.filter(Customer=req.user)
+    from itertools import groupby
+
+    def designation_key_func(member): return member.Status
+    queryset = OrderRequest.objects.all()
+
+    ServiceRequests = {}
+    for k, v in groupby(queryset, designation_key_func):
+        ServiceRequests.setdefault(k, []).extend(list(v))
+    order = ["New", "Qualified", "Propostion", "Won", "Lost"]
+    Sum_tot = {}
+    for Status in order:
+        if Status not in ServiceRequests:
+            ServiceRequests[Status] = []
+        Sum_tot[Status] = sum(
+            [a.Expected_price for a in ServiceRequests[Status]])
+
+    return JsonResponse(data={"Sum_tot": Sum_tot})
+
+
+@csrf_exempt
+def StatusUpdater(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            print(data)
+            Request = OrderRequest.objects.get(id=data.get("Company_id"))
+            Request.Status = data.get("Status")
+            Request.save()
+            return JsonResponse({'message': 'Data received successfully'})
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': f'Invalid JSON format {e}'}, status=400)
+
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+def CompanyReport(req):
+
+    return render(req, "CustomerReportView.Jinja2")

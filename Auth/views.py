@@ -52,5 +52,7 @@ def UserLogout(request):
 
 def Index(req):
     if req.user.is_authenticated:
-        return render(req, "Home.jinja2", {"data": [98, 8]})
+        if req.user.is_admin:
+            return redirect("CompanyDashboardView")
+        return redirect("CustomerDashboard")
     return render(req, "Index.jinja2", {"data": [98, 8]})

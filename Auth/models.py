@@ -57,7 +57,7 @@ class Users(AbstractBaseUser):
     USERNAME_FIELD = "email"
 
     def __str__(self):
-        return self.email
+        return self.name
 
     def has_perm(self, perm, obj=None):
         return True

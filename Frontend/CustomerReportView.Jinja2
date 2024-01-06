@@ -23,6 +23,7 @@
     <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
     <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <!-- Customized Bootstrap Stylesheet -->
 
@@ -43,50 +44,26 @@
         </div>
         <!-- Spinner End -->
 
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">
-                        <i class="fa fa-user-edit me-2"></i>DarkPan
-                    </h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="{% static 'img/user.jpg'   %}" alt=""
-                            style="width: 40px; height: 40px" />
-                        <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                        </div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <a href="{% url 'CustomerDashboard' %}" class="nav-item nav-link active"><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
-                    <a href="{% url 'CustomerDashboardView' %}" class="nav-item nav-link"><i
-                            class="fa fa-keyboard me-2"></i>Forms</a>
-                </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content open">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="" class="navbar-brand d-flex d-lg-none me-4">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <div class="navbar-nav align-items-center ms-auto">
+                <a href="#" class="flex-shrink-0">Company A</a>
 
+                <div class="navbar-nav align-items-center ms-auto">
+                    <a href="#" class="nav-link active">
+                        <i class="fa fa-dashboard me-lg-2"></i>
+                        <span class="d-none d-lg-inline-flex">Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-bell me-lg-2"></i>
+                        <span class="d-none d-lg-inline-flex">CRM</span>
+                    </a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
@@ -127,75 +104,26 @@
             </nav>
             <!-- Navbar End -->
 
-            <!-- Blank Start -->
-            <div class="container-fluid pt-4 px-4  ">
 
-
+            <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-12">
+
+
+                    <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Request Services</h6>
-                            {% if form.errors %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <div id="form_errors">
-                                    {% for key, value in form.errors.items %}
-                                    <strong>{{ key}} {{ value }}</strong>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% if success %}
-                            <div class="alert  alert-success">
-                                <strong> Service Request Successfully created</strong>
+                            <h6 class="mb-4">Multiple Bar Chart</h6>
+                            <canvas id="worldwide-sales"></canvas>
+                        </div>
+                    </div>
 
-                            </div>
-                            {% endif %}
-                            <form method="POST" enctype="multipart/form-data" action="{% url 'CreateOrderRequest' %}">
-                                {% csrf_token %}
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="floatingSelect"
-                                        aria-label="Floating label select example">
-                                        <option selected>SWIFT Connect</option>
-                                    </select>
-                                    <label for="floatingSelect">Select Services Type</label>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Deadline</label>
-                                    <input required name="Deadline" type="date" class="form-control">
-                                </div>
-
-                                <label for="floatingTextarea" class="form-label">Description</label>
-                                <div class="form-floating mb-3">
-
-                                    <textarea required name="Description" class="form-control"
-                                        placeholder="Leave a comment here" id="floatingTextarea"
-                                        style="height: 80px;"></textarea>
-                                    <label for="floatingTextarea">Additional Instructions</label>
-
-                                </div>
-                                <label for="basic-url" class="form-label">Your Budget</label>
-
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">$</span>
-                                    <input name="Expected_price" id="basic-url" type="text" class="form-control"
-                                        aria-label="Amount (to the nearest dollar)">
-                                    <span class="input-group-text">.00</span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="formFile" class="form-label">Support Document</label>
-                                    <input name="Document" class="form-control bg-dark" type="file" id="formFile">
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Doughnut Chart</h6>
+                            <canvas id="doughnut-chart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Blank End -->
-
-            <!-- Widgets End -->
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
@@ -235,6 +163,7 @@
     <!-- Template Javascript -->
     <script src="{% static 'js/CustomerMain.js' %}"></script>
     <script src="{% static 'js/Custom.js' %}"></script>
+    <script src="{% static 'js/mainChart.js' %}"></script>
 </body>
 
 </html>
