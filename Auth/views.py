@@ -16,7 +16,7 @@ def UserRegister(req):
                 user.set_password(form.cleaned_data["password"])
                 user.save()
                 # print()
-                return redirect("Login")
+                return render(req, "Login.jinja2", {"register": True})
             print(form.errors.as_data())
             return render(req, "Register.jinja2", {"form": form})
 

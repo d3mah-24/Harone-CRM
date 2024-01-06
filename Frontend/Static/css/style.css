@@ -25,6 +25,29 @@ body {
   font-weight: 500;
   position: relative;
 }
+.alert {
+  position: relative;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+.alert-danger .alert-link {
+  color: #6a1a21;
+}
+.alert-success {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+.alert-dismissible {
+  padding-right: 3rem;
+}
+.alert-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
 .container .title::before {
   content: "";
   position: absolute;
@@ -94,7 +117,7 @@ form .category label .dot {
 #dot-3:checked ~ .category label .three {
   background: #9b59b6;
   border-color: #d9d9d9;
-} 
+}
 form .button {
   height: 45px;
   /* margin: 35px 0; */
@@ -148,8 +171,8 @@ form.form-select:focus {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
-form .spanReq{
-    color: red;
+form .spanReq {
+  color: red;
 }
 @media (max-width: 584px) {
   .container {

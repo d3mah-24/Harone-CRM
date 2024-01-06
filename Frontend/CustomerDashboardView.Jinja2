@@ -50,13 +50,13 @@
             </div>
             <div class="ms-3">
               <h6 class="mb-0">{{ request.user.name }}</h6>
-              <span>Admin</span>
+              <span>Customer</span>
             </div>
           </div>
           <div class="navbar-nav w-100">
             <a href="{% url 'CustomerDashboard' %}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
-            <a href="{% url 'CustomerDashboardView' %}" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Forms</a>
+            <a href="{% url 'CustomerDashboardView' %}" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>View</a>
           </div>
         </nav>
       </div>
@@ -128,7 +128,7 @@
                       {% if ServiceRequest.Document %}
                         <tr>
                           <th scope="row">#</th>
-                          <td>Doc</td>
+                          <td>Document</td>
                           <td></td>
                           <td>
                             <a href=" {{ ServiceRequest.Document.url }}">{{ ServiceRequest.Document|slice:'10:' }}</a>

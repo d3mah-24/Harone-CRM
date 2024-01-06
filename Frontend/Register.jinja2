@@ -18,6 +18,21 @@
 
     <div class="title">Registration</div>
     <div class="content">
+      {% if form.errors %}
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <div id="form_errors">
+          {% for key, value in form.errors.items %}
+          <strong>{{ key}} {{ value }}</strong>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% if success %}
+      <div class="alert  alert-success">
+        <strong> Service Request Successfully created</strong>
+
+      </div>
+      {% endif %}
       <form action="/register" method="POST">
         {% csrf_token %}
         <div class="user-details">

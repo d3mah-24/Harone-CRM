@@ -15,7 +15,24 @@
     <div class="title">Login</div>
 
     <div class="content">
-      {{ form.as_p }}
+      {% if wrong_pass %}
+      <div class="alert alert-danger alert-dismissible bg" role="alert">
+        <div id="form_errors">
+
+          <strong>Wrong Pass</strong>
+
+        </div>
+      </div>
+      {% endif %}
+      {% if register %}
+      <div class="alert alert-success alert-dismissible bg" role="alert">
+        <div id="form_errors">
+
+          <strong>Successfully Register</strong>
+
+        </div>
+      </div>
+      {% endif %}
       <form action="{% url 'Login' %}" method="POST">
         {% csrf_token %}
         <div class="user-details">
@@ -27,15 +44,13 @@
 
           <div class="input-box">
             <span class="details">Password <span class="spanReq"> *</span></span>
-            <input name="password" type="text" placeholder="Enter your password" required />
+            <input value="dd" name="password" type="text" placeholder="Enter your password" required />
           </div>
 
         </div>
         <a href="{% url 'Register' %}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">
           SignUp</a>
-        {% if wrong_pass %}
-        <p>Wrong Pass</p>
-        {% endif %}
+
         <div class="button">
           <input type="submit" value="Login" />
         </div>
